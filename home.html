@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Sidebar Category Menu -->
+        <div class="col-md-2 mb-3">
+            <div class="list-group">
+                {% set categories = [
+                    ('Supermarket', 'shopping-basket'),
+                    ('Health & Beauty', 'user'),
+                    ('Home & Office', 'comment'),
+                    ('Fashion', 'camera'),
+                    ('Electronics', 'audio-description'),
+                    ('Gaming', 'cubes'),
+                    ('Baby Products', 'child'),
+                    ('Sporting Goods', 'bicycle'),
+                    ('Garden & Outdoor', 'binoculars')
+                ] %}
+                {% for name, icon in categories %}
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <i class="fa fa-{{ icon }}"></i>
+                        <span class="ms-2">{{ name }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Center Image -->
+        <div class="col-md-7 mb-3">
+            <img src="{{ url_for('static', filename='images/center.gif') }}" class="img-fluid rounded shadow-sm" alt="Center Banner">
+        </div>
+
+        <!-- Right Side Services -->
+        <div class="col-md-3">
+            <div class="bg-white p-3 rounded mb-3 shadow-sm">
+                {% set services = [
+                    ('help.png', 'HELP CENTER', 'Customer care'),
+                    ('return.png', 'EASY RETURN', 'Quick Refund'),
+                    ('payment.png', 'SELL ON AMAZON', 'FBA Program')
+                ] %}
+                {% for icon, title, subtitle in services %}
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="{{ url_for('static', filename='images/' ~ icon) }}" class="me-3" style="width: 30px;">
+                        <div>
+                            <h6 class="mb-0" style="font-size: 13px;">{{ title }}</h6>
+                            <small class="text-muted">{{ subtitle }}</small>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <img src="{{ url_for('static', filename='images/right2.gif') }}" class="img-fluid rounded shadow-sm" alt="Ad">
+        </div>
+    </div>
+</div>
+
+<!-- Promo Shortcuts -->
+<div class="container my-4">
+    <div class="row g-3 text-center">
+        {% set promos = [
+            ('techweek.png', 'Tech Week'),
+            ('FreeDelivery.png', 'Free Delivery'),
+            ('food.png', 'Amazon Food'),
+            ('airtime.png', 'Airtime & Bills')
+        ] %}
+        {% for icon, label in promos %}
+            <div class="col-6 col-md-3">
+                <div class="d-flex align-items-center justify-content-center bg-white rounded p-2 shadow-sm">
+                    <img src="{{ url_for('static', filename='images/' ~ icon) }}" class="me-2" style="width: 30px;">
+                    <span class="fw-semibold">{{ label }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Product Listings -->
+<div class="container my-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+        {% for item in items %}
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ item.product_picture }}" class="card-img-top" style="height: 202px; object-fit: cover;" alt="{{ item.product_name }}">
+                <div class="card-body text-center">
+                    <h6 class="text-muted">{{ item.product_name }}</h6>
+                    <h5 class="fw-bold">Ksh {{ item.current_price }}</h5>
+                    <p><strike class="text-muted">Ksh {{ item.previous_price }}</strike></p>
+                    <p>{{ item.in_stock }} items left</p>
+                    <a href="/add-to-cart/{{ item.id }}" class="btn btn-warning btn-sm">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+

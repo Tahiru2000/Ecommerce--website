@@ -1,0 +1,56 @@
+{% extends 'forms.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+
+<!-- Login Section -->
+<section class="base" id="base-signup">
+    <div class="base-content">
+        <div class="form">
+
+            <h3 class="mb-3">
+                Login to start <br> Shopping
+            </h3>
+            <hr class="first">
+
+            <form method="POST" novalidate>
+                {{ form.hidden_tag() }}
+
+                <!-- Email Field -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    {{ form.email(class="form-control", id="email") }}
+                    {% if form.email.errors %}
+                        <div class="text-danger small mt-1">
+                            {% for error in form.email.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Password Field -->
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    {{ form.password(class="form-control", id="password") }}
+                    {% if form.password.errors %}
+                        <div class="text-danger small mt-1">
+                            {% for error in form.password.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <a href="/sign-up" class="btn btn-link p-0">Sign Up</a>
+                    {{ form.submit(class="btn btn-primary") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
